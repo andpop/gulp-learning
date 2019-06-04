@@ -1,7 +1,11 @@
-const { src, dest } = require("gulp");
+const { src, dest, task, series } = require("gulp");
+var rm = require('gulp-rm');
 
-function copy() {
-    return src('src/styles/main.scss').pipe(dest('dist'));
-}
+task( 'clean', () => {
+    return src( 'dist/**/*', { read: false })
+      .pipe( rm() )
+  })
 
-exports.copy = copy;
+task( 'copy', () => {
+    return src('src/styles/*.scss').pipe(dest('dist'));
+  })
