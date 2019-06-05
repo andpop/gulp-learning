@@ -6,6 +6,8 @@ task('clean', () => {
     .pipe(rm())
 })
 
-task('copy', series('clean', () => {
+task('copy', () => {
   return src('src/styles/*.scss').pipe(dest('dist'));
-}))
+})
+
+task('default', series('clean', 'copy'))
