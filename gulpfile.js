@@ -1,4 +1,4 @@
-const { src, dest, task, series } = require("gulp");
+const { src, dest, task, series, watch } = require("gulp");
 const rm = require('gulp-rm');
 const sass = require('gulp-sass');
 const concat = require('gulp-concat');
@@ -27,4 +27,5 @@ task('styles', function () {
 });
 
 
+watch('./src/styles/**/*.scss', series('styles'));
 task('default', series('clean', 'styles'))
