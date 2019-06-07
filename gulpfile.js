@@ -7,6 +7,7 @@ const reload = browserSync.reload;
 const sassGlob = require('gulp-sass-glob');
 const autoprefixer = require('gulp-autoprefixer');
 const px2rem = require('gulp-smile-px2rem');
+const gcmq = require('gulp-group-css-media-queries');
 
 sass.compiler = require('node-sass');
 
@@ -36,6 +37,7 @@ task('styles', function () {
       browsers: ['last 2 versions'],
       cascade: false
     }))
+    .pipe(gcmq())
     .pipe(dest('dist'));
 });
 
