@@ -45,7 +45,8 @@ task('styles', () => {
     // .pipe(gcmq())
     .pipe(cleanCSS())
     .pipe(sourcemaps.write())
-    .pipe(dest('dist'));
+    .pipe(dest('dist'))
+    .pipe(reload({ stream: true }));
 });
 
 const libs = [
@@ -62,7 +63,8 @@ task('scripts', () => {
     }))
     .pipe(uglify())
     .pipe(sourcemaps.write())
-    .pipe(dest('dist'));
+    .pipe(dest('dist'))
+    .pipe(reload({ stream: true }));
 });
 
 task('server', () => {
