@@ -34,7 +34,7 @@ const styles = [
 task('styles', () => {
   return src(styles)
     .pipe(sourcemaps.init())
-    .pipe(concat('main.scss'))
+    .pipe(concat('main.min.scss'))
     .pipe(sassGlob())
     .pipe(sass().on('error', sass.logError))
     .pipe(px2rem())
@@ -48,10 +48,15 @@ task('styles', () => {
     .pipe(dest('dist'));
 });
 
+const libs = [
+  'node_modules/jquery/dist/jquery.js',
+  'src/scripts/*.js'
+];
+
 task('scripts', () => {
-  return src('src/scripts/*.js')
+  return src(libs)
     .pipe(sourcemaps.init())
-    .pipe(concat('main.js', {newLine: ';'}))
+    .pipe(concat('main.min.js', {newLine: ';'}))
     .pipe(babel({
       presets: ['@babel/env']
     }))
