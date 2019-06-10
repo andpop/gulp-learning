@@ -11,6 +11,7 @@ const gcmq = require('gulp-group-css-media-queries');
 const cleanCSS = require('gulp-clean-css');
 const sourcemaps = require('gulp-sourcemaps');
 const babel = require('gulp-babel');
+const uglify = require('gulp-uglify');
 
 sass.compiler = require('node-sass');
 
@@ -54,6 +55,7 @@ task('scripts', () => {
     .pipe(babel({
       presets: ['@babel/env']
     }))
+    .pipe(uglify())
     .pipe(sourcemaps.write())
     .pipe(dest('dist'));
 });
@@ -69,5 +71,6 @@ task('server', () => {
 
 watch('./src/styles/**/*.scss', series('styles'));
 watch('./src/*.html', series('copy:html'));
+watch('./src/scripts/*.js', series('scripts'));
 
 task('default', series('clean', 'copy:html', 'styles', 'scripts', 'server'));
