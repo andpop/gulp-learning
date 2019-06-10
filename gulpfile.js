@@ -12,6 +12,8 @@ const cleanCSS = require('gulp-clean-css');
 const sourcemaps = require('gulp-sourcemaps');
 const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
+const svgo = require('gulp-svgo');
+const svgSprite = require('gulp-svg-sprite');
 
 sass.compiler = require('node-sass');
 
@@ -65,6 +67,12 @@ task('scripts', () => {
     .pipe(sourcemaps.write())
     .pipe(dest('dist'))
     .pipe(reload({ stream: true }));
+});
+
+task('icons', () => {
+  return src('src/images/icons')
+    .pipe()
+
 });
 
 task('server', () => {
