@@ -14,11 +14,12 @@ const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 const svgo = require('gulp-svgo');
 const svgSprite = require('gulp-svg-sprite');
+const {SRC_PATH, DIST_PATH, STYLE_LIBS, JS_LIBS} = require('./gulp.config');
 
 sass.compiler = require('node-sass');
 
 task('clean', () => {
-  return src('dist/**/*', { read: false })
+  return src(`${DIST_PATH}/**/*`, { read: false })
     .pipe(rm())
 })
 
