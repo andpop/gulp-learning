@@ -19,13 +19,13 @@ const {SRC_PATH, DIST_PATH, STYLE_LIBS, JS_LIBS} = require('./gulp.config');
 sass.compiler = require('node-sass');
 
 task('clean', () => {
-  return src(`${DIST_PATH}/**/*`, { read: false })
+  return src(`${SRC_PATH}/**/*`, { read: false })
     .pipe(rm())
 })
 
 task('copy:html', () => {
-  return src('src/*.html')
-    .pipe(dest('dist'))
+  return src(`${SRC_PATH}/*.html`)
+    .pipe(dest(DIST_PATH))
     .pipe(reload({ stream: true }));
 })
 
@@ -48,7 +48,7 @@ task('styles', () => {
     // .pipe(gcmq())
     .pipe(cleanCSS())
     .pipe(sourcemaps.write())
-    .pipe(dest('dist'))
+    .pipe(dest(DIST_PATH))
     .pipe(reload({ stream: true }));
 });
 
@@ -66,7 +66,7 @@ task('scripts', () => {
     }))
     .pipe(uglify())
     .pipe(sourcemaps.write())
-    .pipe(dest('dist'))
+    .pipe(dest(DIST_PATH))
     .pipe(reload({ stream: true }));
 });
 
@@ -88,7 +88,7 @@ task('icons', () => {
         }
       }
     }))
-    .pipe(dest('dist/images/icons'));
+    .pipe(dest(`${DIST_PATH}/images/icons`));
 });
 
 task('server', () => {
