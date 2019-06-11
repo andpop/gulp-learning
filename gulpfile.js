@@ -70,9 +70,24 @@ task('scripts', () => {
 });
 
 task('icons', () => {
-  return src('src/images/icons')
-    .pipe()
-
+  return src('src/images/icons/*.svg')
+    .pipe(svgo({
+      plugins: [
+        {
+          removeAttrs: {
+            attrs: '(fill|stroke|style|width|height|data.*)'
+          }
+        }
+      ]
+    }))
+    .pipe(svgSprite({
+      mode: {
+        symbol: {
+          sprite: '../sprite.svg'
+        }
+      }
+    }))
+    .pipe(dest('dist/images/icons'));
 });
 
 task('server', () => {
@@ -87,5 +102,6 @@ task('server', () => {
 watch('./src/styles/**/*.scss', series('styles'));
 watch('./src/*.html', series('copy:html'));
 watch('./src/scripts/*.js', series('scripts'));
+watch('./src/images/icons/*.svg', series('icons'));
 
-task('default', series('clean', 'copy:html', 'styles', 'scripts', 'server'));
+task('default', series('clean', 'copy:html', 'styles', 'scripts', 'icons', 'server'));
