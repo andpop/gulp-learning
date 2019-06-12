@@ -19,7 +19,7 @@ const {SRC_PATH, DIST_PATH, STYLE_LIBS, JS_LIBS} = require('./gulp.config');
 sass.compiler = require('node-sass');
 
 task('clean', () => {
-  return src(`${SRC_PATH}/**/*`, { read: false })
+  return src(`${DIST_PATH}/**/*`, { read: false })
     .pipe(rm())
 })
 
@@ -29,13 +29,8 @@ task('copy:html', () => {
     .pipe(reload({ stream: true }));
 })
 
-const styles = [
-  'node_modules/normalize.css/normalize.css',
-  'src/styles/main.scss'
-];
-
 task('styles', () => {
-  return src(styles)
+  return src([...STYLE_LIBS, 'src/styles/main.scss'])
     .pipe(sourcemaps.init())
     .pipe(concat('main.min.scss'))
     .pipe(sassGlob())
@@ -58,7 +53,7 @@ const libs = [
 ];
 
 task('scripts', () => {
-  return src(libs)
+  return src([...JS_LIBS, 'src/scripts/*.js'])
     .pipe(sourcemaps.init())
     .pipe(concat('main.min.js', {newLine: ';'}))
     .pipe(babel({
