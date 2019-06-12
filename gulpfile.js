@@ -14,6 +14,8 @@ const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 const svgo = require('gulp-svgo');
 const svgSprite = require('gulp-svg-sprite');
+const gulpif = require('gulp-if');
+
 const {SRC_PATH, DIST_PATH, STYLE_LIBS, JS_LIBS} = require('./gulp.config');
 
 sass.compiler = require('node-sass');
@@ -76,13 +78,13 @@ task('icons', () => {
         }
       ]
     }))
-    .pipe(svgSprite({
-      mode: {
-        symbol: {
-          sprite: '../sprite.svg'
-        }
-      }
-    }))
+    // .pipe(svgSprite({
+    //   mode: {
+    //     symbol: {
+    //       sprite: '../sprite.svg'
+    //     }
+    //   }
+    // }))
     .pipe(dest(`${DIST_PATH}/images/icons`));
 });
 
