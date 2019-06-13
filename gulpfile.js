@@ -78,13 +78,13 @@ task('icons', () => {
         }
       ]
     }))
-    // .pipe(svgSprite({
-    //   mode: {
-    //     symbol: {
-    //       sprite: '../sprite.svg'
-    //     }
-    //   }
-    // }))
+    .pipe(svgSprite({
+      mode: {
+        symbol: {
+          sprite: '../sprite.svg'
+        }
+      }
+    }))
     .pipe(dest(`${DIST_PATH}/images/icons`));
 });
 
