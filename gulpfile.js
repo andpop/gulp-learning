@@ -45,7 +45,7 @@ task('styles', () => {
         cascade: false
       })))
     .pipe(gulpif(env === 'prod', gcmq()))
-    .pipe(cleanCSS())
+    .pipe(gulpif(env === 'prod', cleanCSS()))
     .pipe(gulpif(env === 'dev', sourcemaps.write()))
     .pipe(dest(DIST_PATH))
     .pipe(reload({ stream: true }));
@@ -118,7 +118,5 @@ task('default',
 task('build', 
   series(
     'clean', 
-    parallel('copy:html', 'styles', 'scripts', 'icons'), 
-    parallel('watch', 'server')
-  )
+    parallel('copy:html', 'styles', 'scripts', 'icons'))
 );
